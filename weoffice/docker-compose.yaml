@@ -1,0 +1,70 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:latest
+    volumes:
+      - ./todo-mysql-data:/var/lib/mysql
+      - ./mysql_init:/docker-entrypoint-initdb.d
+    environment:
+      LC_ALL: C.UTF-8
+      character-set-server: utf8
+      collation-server: utf8_general_ci
+      default-character-set: utf8
+      default-collation: utf8_general_ci
+      innodb-flush-log-at-trx-commit: 0
+      TZ: Asia/Seoul
+      MYSQL_ROOT_PASSWORD: "1234"
+    expose:
+      - 3306
+    ports:
+      - "3310:3306"
+
+  phptool:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    #links:
+    #  - mysql
+    environment:
+      # - PMA_ARBITRARY=1
+      - PMA_HOST=weoffice-mysql-1
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=1234
+    ports:
+      - 1234:80
+
+  api:
+    build:
+      context: ./
+      dockerfile: ./api/dockerFile
+    #working_dir: /home/node/app
+    volumes:
+      - ./api/src:/app/src
+      - ./api/public:/app/public
+
+    command: "npm test"
+    environment:
+      NODE_ENV: "production"
+      production: "docker"
+    # deploy:
+    #   mode: replicated
+    #   replicas: 10
+    #   endpoint_mode: dnsrr
+    ports:
+      - "1222:1222"
+#   mysql:
+#     image: mariadb:latest
+#     volumes:
+#       - ./todo-mysql-data:/var/lib/mysql
+#     environment:
+#       MYSQL_ROOT_PASSWORD: 1234
+#     ports:
+#       - "3306:3306"
+#     networks:
+#      - out-net
+
+# 외부 통신 허용 설정
+# networks:
+#   out-net:
+#     driver: bridge
+#     external: true

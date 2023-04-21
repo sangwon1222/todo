@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  button {
+    box-sizing: border-box;
+    transition: all 0.25s;
+  }
+  button:hover {
+    color: #fff;
+    background-color: rgb(56 189 248); /*  bg-sky-400  */
+  }
+  .fold-card {
+    animation: foldCard 1s forwards;
+    transition: all 0.25s;
+  }
+  .un-fold-card {
+    animation: unFoldCard 1s forwards;
+  }
+  .fold-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotate(180deg);
+    border: 2px #ff00 solid;
+    transition: all 0.25s;
+  }
+  .un-fold-icon {
+    position: relative;
+  }
+
+  .drop-down-btn {
+    overflow: hidden;
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    width: 1.2rem;
+    height: 1.2rem;
+    background: #fff;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: transform 0.5s;
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -0.2rem;
+      width: 0.8rem;
+      height: 0.8rem;
+      border: 0.4rem transparent solid;
+      border-bottom: 0.4rem grey solid;
+      box-sizing: border-box;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  @keyframes foldCard {
+    to {
+      position: relative;
+      height: 0;
+      border: 2px #000 solid;
+    }
+  }
+  @keyframes unFoldCard {
+    to {
+      height: auto;
+    }
+  }
+
+  .layout-center {
+    @apply flex justify-center items-center;
+  }
+}
+
+body {
+  display: flex;
+  /* max-width: 840px; */
+  width: 100%;
+  flex-direction: column;
+  padding: 1rem 0.5rem 4rem;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+    "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Open Sans", sans-serif;
+  color: #86a5b1;
+  background-color: #2f3241;
+  box-sizing: border-box;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  outline: none;
+  box-shadow: none;
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+}
+
+ul {
+  list-style: none;
+}
+
+input[type="submit"] {
+  overflow: hidden;
+  white-space: pre-wrap;
+  padding: 1rem;
+  cursor: pointer;
+}
+input[type="submit"]:invalid {
+  color: #1e293b;
+  border: 2px red solid;
+}
+input[type="submit"]:valid {
+  color: #fff;
+}
+input:valid {
+  border: none;
+}
+select:invalid,
+input:invalid {
+  border: 2px #ff0000 solid;
+}
+// input:focus {
+//   border: 6px green solid;
+// }
+
+a {
+  color: #9feaf9;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+}
+
+a:hover {
+  border-bottom: 1px solid;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+@media (max-width: 840px) {
+}
+
+@media (max-width: 660px) {
+}
+
+@media (max-width: 660px) {
+}
+
+@media (max-width: 480px) {
+}
+
+.grid-col {
+  @apply flex flex-col;
+}
